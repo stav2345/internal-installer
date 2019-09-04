@@ -18,7 +18,7 @@ public class GithubConfig {
 	private static final String PROXY_PATH = "config/proxyConfig.xml";
 
 	private static final String USR_LOCAL_APPDATA_PATH = System.getProperty("user.home") + "\\AppData\\Local\\";
-	public static final String JAVA_PATH = System.getProperty("java.home"); //"Application.JavaPath";
+	//public static final String JAVA_PATH = System.getProperty("java.home"); //"Application.JavaPath";
 	public static final String REPOSITORY_NAME = "Github.RepositoryName";
 	public static final String REPOSITORY_OWNER = "Github.RepositoryOwner";
 	private static final String APP_FOLDER = "Application.Folder";
@@ -60,15 +60,6 @@ public class GithubConfig {
 	 */
 	public String getAppPath() {
 		return USR_LOCAL_APPDATA_PATH + getValue(APP_FOLDER);
-	}
-
-	/**
-	 * get the java path from the executable file location
-	 * 
-	 * @return
-	 */
-	public String getJavaPathDir() {
-		return System.getProperty("user.dir") + System.getProperty("file.separator") + getValue(JAVA_PATH);
 	}
 
 	public String getJarPath() {
