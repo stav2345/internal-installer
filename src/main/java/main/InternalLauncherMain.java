@@ -5,7 +5,12 @@ import javax.swing.JOptionPane;
 import config.GithubChecker;
 import dialog.Warning;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class InternalLauncherMain {
+	
+	private static final Logger LOGGER = LogManager.getLogger(InternalLauncherMain.class);
 
 	public static void main(String[] args) {
 
@@ -17,6 +22,7 @@ public class InternalLauncherMain {
 			actions.start();
 		}
 		catch (Exception e) {
+			LOGGER.error("There are error ypon initialize", e);
 			e.printStackTrace();
 		    String trace = Warning.getStackTrace(e);
 		    

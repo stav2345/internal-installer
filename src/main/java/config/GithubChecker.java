@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * General settings and start up checks
@@ -12,6 +14,8 @@ import org.apache.commons.io.FileUtils;
  *
  */
 public class GithubChecker {
+	
+	private static final Logger LOGGER = LogManager.getLogger(GithubChecker.class);
 	
 	// template folder name
 	public static final String TEMP_FOLDER_NAME = "temp";
@@ -40,14 +44,14 @@ public class GithubChecker {
 		// create temporary folder if needed
 		File file = new File(dirName);
 		
-		System.out.println("Creating " + dirName);
+		LOGGER.info("Creating " + dirName);
 		
 		// create the directory
 		if (!file.exists()) {
 			boolean created = file.mkdir();
 			
 			if (!created) {
-				System.err.println("Cannot create "+dirName+" directory");
+				LOGGER.error("Cannot create "+dirName+" directory");
 				return;
 			}
 		}

@@ -10,7 +10,12 @@ import com.eclipsesource.json.JsonValue;
 import config.GithubChecker;
 import config.GithubConfig;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ReleaseParser {
+	
+	private static final Logger LOGGER = LogManager.getLogger(ReleaseParser.class);
 
 	private String jsonInput;
 	private JsonValue value;
@@ -101,9 +106,9 @@ public class ReleaseParser {
 			}
 		}
 		
-		System.err.println("Cannot find application version with " + appKeyword 
+		LOGGER.error("Cannot find application version with " + appKeyword 
 				+ " flag in its name. Example tool-" + appKeyword + ".zip");
-		System.err.println("Using first available asset instead");
+		LOGGER.error("Using first available asset instead");
 		
 		return getFirstAsset();
 	}
@@ -137,6 +142,7 @@ public class ReleaseParser {
 		
 		int size = app.getInt("size", -1);
 		
+		LOGGER.error("The size of the release is" + size);
 		return size;
 	}
 }

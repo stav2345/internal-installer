@@ -4,7 +4,12 @@ import java.io.IOException;
 
 import http.HttpManager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class GetLastRelease {
+	
+	private static final Logger LOGGER = LogManager.getLogger(GetLastRelease.class);
 	
 	private static final String URL_PATTERN = "https://api.github.com/repos/:username/:repo/releases/latest";
 	
@@ -23,7 +28,7 @@ public class GetLastRelease {
 	
 	public String get() throws IOException {
 		
-		System.out.println("Sending Github request to " + endpoint);
+		LOGGER.info("Sending Github request to " + endpoint);
 		
 		return HttpManager.get(endpoint);
 	}

@@ -8,7 +8,12 @@ import org.apache.commons.io.FileUtils;
 import config.GithubChecker;
 import config.GithubConfig;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class OldVersionTracker {
+	
+	private static final Logger LOGGER = LogManager.getLogger(OldVersionTracker.class);
 
 	private GithubConfig config;
 	private String appPath;
@@ -27,8 +32,10 @@ public class OldVersionTracker {
 		
 		File app = new File(this.appPath);
 
-		if (!app.exists())
+		if (!app.exists()) {
+			LOGGER.error("The application folder " + this.appPath + " does not exist");
 			throw new IOException("The application folder " + this.appPath + " does not exist");
+		}
 
 		String dbFolder = config.getValue(GithubConfig.APP_DB_FOLDER);
 		String tempFolder = GithubChecker.TEMP_FOLDER_NAME;
@@ -54,6 +61,8 @@ public class OldVersionTracker {
 	 * @throws IOException
 	 */
 	public void moveNewFiles(String newFilesFolder) throws IOException {
+		
+		LOGGER.info("Moving the files of the new version..");
 
 		File folder = new File(newFilesFolder);
 
@@ -98,7 +107,7 @@ public class OldVersionTracker {
 		String target = location + System.getProperty("file.separator") + src.getName();
 		File dest = new File(target);
 
-		System.out.println("Moving " + src + " to " + target);
+		LOGGER.info("Moving " + src + " to " + target);
 
 		try {
 
@@ -123,6 +132,7 @@ public class OldVersionTracker {
 				FileUtils.moveFile(src, dest);
 			}
 		} catch (IOException e) {
+			LOGGER.error("An error occurred upon move of file", e);
 			e.printStackTrace();
 		}
 	}
